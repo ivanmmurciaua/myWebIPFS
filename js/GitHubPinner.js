@@ -141,6 +141,7 @@
 
   async function getText(URL) {
     
+    console.log("Bazinga");
     fetch(URL)
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then(function(obj){
