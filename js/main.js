@@ -60,7 +60,9 @@
 	/* Alert Boxes
   	------------------------------------------------------- */
 	$('.alert-box').on('click', '.close', function() {
-	  $(this).parent().fadeOut(500);
+	  //$(this).parent().fadeOut(500);
+	  document.getElementById("screen-overlay-text").style.display = "none";
+	  document.getElementById("screen-overlay-text-crypto").style.display = "none";
 	});	
 
 
