@@ -147,12 +147,10 @@
     .then(function(obj){
       console.log(obj.body.length);
       for (var i = obj.body.length - 1; i >= 0; i--) {
-        if(!obj.body[i].fork) {
-          var div = document.createElement('div');
-          div.setAttribute('data', 'https://github.com/ivanmmurciaua/'+obj.body[i].name);
-          div.setAttribute('class', 'github-pinner flat');
-          document.getElementById("portfolio_box").appendChild(div);
-        }
+      	var div = document.createElement('div');
+      	div.setAttribute('data', 'https://github.com/ivanmmurciaua/'+obj.body[i].name);
+      	div.setAttribute('class', 'github-pinner flat');
+      	document.getElementById("portfolio_box").appendChild(div);
       }
     });
   }
