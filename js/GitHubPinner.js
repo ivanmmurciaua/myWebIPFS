@@ -139,13 +139,26 @@
     }
   }
 
+  //Comparer Function    
+  function GetSortOrder(prop) {    
+    return function(a, b) {    
+      if (a[prop] > b[prop]) {    
+          return 1;    
+      } else if (a[prop] < b[prop]) {    
+          return -1;    
+      }    
+      return 0;    
+    }    
+  }
+
   async function getText(URL) {
     
-    console.log("Bazinga");
     fetch(URL)
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then(function(obj){
-      console.log(obj.body.length);
+      //obj.body == repos
+      obj.body.sort(GetSortOrder("created_at".split("T")[0]))
+
       for (var i = obj.body.length - 1; i >= 0; i--) {
       	var div = document.createElement('div');
       	div.setAttribute('data', 'https://github.com/ivanmmurciaua/'+obj.body[i].name);
