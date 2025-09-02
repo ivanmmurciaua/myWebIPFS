@@ -307,7 +307,7 @@
   // Add my own repos, and optionally yours (OpenAI) if you want to show functional code
   async function addDefaultGithubSections() {
     // Define featured projects by repo name
-    const featuredRepoNames = ["EIP-5216", "web3-tx", "create-evm-address"];
+    const featuredRepoNames = ["EIP-5216", "safekey-wallet", "create-evm-address", "web3-tx"];
     const excludeRepoNames = [
       "ivanmmurcia",
       "P3",
