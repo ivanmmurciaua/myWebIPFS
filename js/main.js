@@ -308,10 +308,10 @@
   async function addDefaultGithubSections() {
     // Define featured projects by repo name
     const featuredRepoNames = [
-      "R1DO-tools",
+      "stealth-auto-shield",
       "R1DO-wallet",
+      "R1DO-tools",
       "EIP-5216",
-      "web3-tx",
     ];
     const excludeRepoNames = [
       "ivanmmurciaua",
