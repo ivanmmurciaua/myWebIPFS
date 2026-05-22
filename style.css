@@ -1,0 +1,485 @@
+/* =============================================================
+   iván mañús murcia — cv
+   two themes:
+     solar (default) — warm, light, quiet. for vcs/recruiters.
+     lunar           — dark terminal, cypherpunk. for hackers.
+   ============================================================= */
+
+/* ---------- vendored fonts (variable, single file each) ------ */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter.woff2") format("woff2-variations");
+  font-weight: 300 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/jetbrains-mono.woff2") format("woff2-variations");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- solar (default) ---------- */
+:root,
+[data-theme="solar"] {
+  --bg:        #faf7f0;
+  --bg-soft:   #f1ece0;
+  --fg:        #1a1a1a;
+  --mute:      #6b6b66;
+  --accent:    #3d5a2c;     /* moss green */
+  --accent-2:  #a87132;     /* warm amber */
+  --rule:      #e2dccc;
+  --shadow:    transparent;
+
+  --font-body:    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "JetBrains Mono", "Fira Code", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: var(--font-body);
+}
+
+/* ---------- lunarpunk ---------- */
+[data-theme="lunar"] {
+  --bg:        #000000;
+  --bg-soft:   #0a0a0a;
+  --fg:        #e6e6e6;
+  --mute:      #888888;
+  --accent:    #39ff14;
+  --accent-2:  #1f8a0c;
+  --rule:      #1a1a1a;
+  --shadow:    rgba(57, 255, 20, 0.35);
+
+  --font-body:    "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  --font-mono:    "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  --font-display: var(--font-mono);
+}
+
+* { box-sizing: border-box; }
+
+#matrix-bg {
+  display: none;
+}
+[data-theme="lunar"] {
+  background: var(--bg); /* paint bg on html so body can go transparent */
+}
+[data-theme="lunar"] body {
+  background: transparent;
+}
+[data-theme="lunar"] #matrix-bg {
+  display: block;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.27;
+}
+[data-theme="lunar"] .container,
+[data-theme="lunar"] .theme-switch,
+[data-theme="lunar"] #terminal {
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================================
+   terminal (lunar only, activated by JS via body.term-mode)
+   ============================================================= */
+
+#terminal { display: none; }
+
+body.term-mode .container { display: none; }
+
+body.term-mode #terminal {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  padding: 28px clamp(20px, 4vw, 56px) 24px;
+  z-index: 2;
+}
+
+.term-screen {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--fg);
+  overflow: hidden;
+}
+
+.term-output {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-2) transparent;
+}
+
+.term-output .line { display: block; }
+.term-output .line.cmd { color: var(--fg); }
+.term-output .line.muted { color: var(--mute); }
+.term-output .line.acc { color: var(--accent); }
+.term-output .line.warn { color: var(--accent-2); }
+.term-output .line.head {
+  color: var(--accent);
+  border-bottom: 1px dashed var(--accent-2);
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.term-output .line.dim { color: var(--mute); font-size: 12px; }
+.term-output .seed {
+  color: #ff3b3b;
+  font-weight: 500;
+  text-shadow: 0 0 4px rgba(255, 59, 59, 0.45);
+}
+.term-output .prompt-echo { color: var(--accent); }
+.term-output a {
+  color: var(--accent);
+  border-bottom: 1px dotted var(--accent-2);
+}
+.term-output .blank { display: block; height: 0.55em; }
+
+.term-form {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-top: 6px;
+}
+.term-prompt { color: var(--accent); white-space: pre; }
+#term-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--fg);
+  font: inherit;
+  caret-color: var(--accent);
+  padding: 0;
+}
+#term-input::selection { background: var(--accent); color: #000; }
+
+@media (max-width: 560px) {
+  body.term-mode #terminal { padding: 16px 14px; }
+  .term-screen { font-size: 12.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #matrix-bg { display: none !important; }
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease, text-shadow 120ms ease;
+}
+a:hover {
+  border-bottom-color: var(--accent);
+}
+[data-theme="lunar"] a:hover {
+  text-shadow: 0 0 6px var(--shadow);
+}
+
+/* =============================================================
+   layout
+   ============================================================= */
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 28px 120px;
+}
+
+.block { margin: 56px 0; }
+
+.section-h {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mute);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 8px;
+}
+.section-h .sub {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+/* lunarpunk swaps the h2 text for its data-cmd attribute,
+   prefixed with a green "$ " so headers read like terminal commands. */
+[data-theme="lunar"] .section-h {
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  font-size: 0; /* hide the human label */
+  color: var(--mute);
+}
+[data-theme="lunar"] .section-h::before {
+  content: "$ ";
+  font-size: 13px;
+  color: var(--accent);
+}
+[data-theme="lunar"] .section-h::after {
+  content: attr(data-cmd);
+  font-size: 13px;
+  color: var(--mute);
+}
+
+/* =============================================================
+   hero
+   ============================================================= */
+
+.hero { margin-bottom: 64px; }
+
+.ascii {
+  display: none; /* solarpunk: hidden */
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.1;
+  margin: 0 0 24px;
+  white-space: pre;
+  overflow: hidden;
+}
+[data-theme="lunar"] .ascii {
+  display: block;
+  text-shadow: 0 0 8px var(--shadow);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  letter-spacing: -0.015em;
+}
+[data-theme="lunar"] .name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.tagline {
+  font-size: 16px;
+  color: var(--fg);
+  margin: 0 0 14px;
+  font-weight: 400;
+  max-width: 60ch;
+}
+[data-theme="lunar"] .tagline {
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.cursor { display: none; }
+[data-theme="lunar"] .cursor {
+  display: inline-block;
+  color: var(--accent);
+  margin-left: 2px;
+  animation: blink 1.05s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.meta {
+  color: var(--mute);
+  font-size: 13px;
+  margin: 0 0 20px;
+  font-family: var(--font-mono);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+/* =============================================================
+   roles / ventures
+   ============================================================= */
+
+.role, .venture { margin: 0 0 32px; }
+
+.role-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+
+.role-head h3 {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.at {
+  color: var(--mute);
+  font-weight: 400;
+}
+
+.dates, .scope {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--mute);
+  white-space: nowrap;
+}
+.scope { letter-spacing: 0.02em; }
+
+.loc {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--mute);
+}
+
+ul { list-style: none; padding: 0; margin: 8px 0 0; }
+
+.role ul li, .projects li {
+  padding-left: 18px;
+  position: relative;
+  margin-bottom: 6px;
+}
+.role ul li::before, .projects li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* =============================================================
+   stack
+   ============================================================= */
+
+.stack {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px 24px;
+  margin: 0;
+}
+.stack dt {
+  font-family: var(--font-mono);
+  color: var(--mute);
+  font-weight: 500;
+  font-size: 13px;
+}
+.stack dd { margin: 0; font-size: 14.5px; }
+
+/* =============================================================
+   education
+   ============================================================= */
+
+.edu li { margin-bottom: 4px; }
+
+/* =============================================================
+   footer
+   ============================================================= */
+
+.footer {
+  margin-top: 96px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  color: var(--mute);
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+.footer p { margin: 4px 0; }
+.fp { word-break: break-all; }
+
+/* =============================================================
+   theme switch
+   ============================================================= */
+
+.theme-switch {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--mute);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  z-index: 10;
+}
+.theme-switch button {
+  background: transparent;
+  border: none;
+  padding: 4px 6px;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.theme-switch button[aria-pressed="true"] {
+  color: var(--accent);
+}
+.theme-switch button:hover { color: var(--fg); }
+
+/* =============================================================
+   placeholders (visible during scaffold)
+   ============================================================= */
+
+.todo {
+  color: var(--accent-2);
+  background: rgba(168, 113, 50, 0.10);
+  padding: 0 4px;
+  border-radius: 2px;
+  font-style: italic;
+}
+[data-theme="lunar"] .todo {
+  color: var(--accent-2);
+  background: rgba(57, 255, 20, 0.06);
+}
+
+/* =============================================================
+   small screens
+   ============================================================= */
+
+@media (max-width: 560px) {
+  .container { padding: 56px 20px 80px; }
+  .role-head { flex-direction: column; gap: 2px; }
+  .dates { white-space: normal; }
+  .stack { grid-template-columns: 1fr; gap: 4px 0; }
+  .stack dd { margin-bottom: 12px; }
+  .ascii { font-size: 9px; }
+  .theme-switch { top: 12px; right: 12px; }
+}
+
+/* =============================================================
+   reduced motion
+   ============================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+  * { transition: none !important; }
+}
