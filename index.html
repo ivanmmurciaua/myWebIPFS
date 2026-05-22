@@ -1,680 +1,408 @@
 <!doctype html>
-<!--[if IE 8]><html class="no-js oldie ie8" lang="es"> <![endif]-->
-<!--[if IE 9]><html class="no-js oldie ie9" lang="es"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<html class="no-js" lang="es">
-    <!--<![endif]-->
-
+<html lang="en" data-theme="solar">
     <head>
-        <!-- _________________________________________________________________________________________________________________________________ -->
-
-        <meta charset="utf-8" />
-        <title>Another Average Website</title>
-        <meta name="description" content="A CV webpage" />
-        <meta name="author" content="Iván Mañús Murcia" />
-
-        <!-- Mobile -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1"
+            name="description"
+            content="Iván Mañús Murcia — web3 engineer with 6+ years in crypto. Exchange Tech Lead at Bit2Me. Privacy primitives, account abstraction, Lightning Network."
         />
+        <meta name="author" content="Iván Mañús Murcia" />
+        <meta name="robots" content="index, follow" />
+        <meta name="color-scheme" content="light dark" />
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="css/base.css" />
-        <link rel="stylesheet" href="css/main.css" />
+        <meta property="og:title" content="Iván Mañús Murcia — CV" />
+        <meta
+            property="og:description"
+            content="Building web3 without the UX tax. Privacy by default, custody by design."
+        />
+        <meta property="og:type" content="profile" />
 
-        <link rel="stylesheet" href="css/vendor.css" />
+        <title>Iván Mañús Murcia — web3 engineer</title>
 
-        <!-- JS -->
-        <script src="js/modernizr.js"></script>
-
-        <script src="js/pace.min.js"></script>
-
-        <!-- FAVICONS -->
-        <link rel="icon" type="image/png" href="favicon.png" />
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect width=%2216%22 height=%2216%22 fill=%22%23faf7f0%22/><text x=%228%22 y=%2212%22 font-family=%22monospace%22 font-size=%2211%22 fill=%22%233d5a2c%22 text-anchor=%22middle%22>im</text></svg>"
+        />
+        <link rel="stylesheet" href="style.css" />
     </head>
+    <body>
+        <!--
+    two themes:
+      solar (default) — quiet, light, readable. for vcs and recruiters.
+      lunar           — cypherpunk, terminal vibes. for the hackers.
+    toggle: set ?theme=lunar / ?theme=solar (or `solar` / `exit` from terminal)
+    no analytics, no trackers. source is meant to be read.
 
-    <body id="top">
-        <header>
-            <div class="row">
-                <div class="top-bar">
-                    <a class="menu-toggle" href="#"><span>Menu</span></a>
-                    <div class="logo">
-                        <a href="index.html">IM²</a>
-                    </div>
-                    <nav id="main-nav-wrap">
-                        <ul class="main-navigation">
-                            <li class="current">
-                                <a class="smoothscroll" href="#intro" title=""
-                                    >Home</a
-                                >
-                            </li>
-                            <li>
-                                <a class="smoothscroll" href="#about" title=""
-                                    >About Me</a
-                                >
-                            </li>
-                            <li>
-                                <a class="smoothscroll" href="#resume" title=""
-                                    >Experience</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    class="smoothscroll"
-                                    href="#portfolio"
-                                    title=""
-                                    >Portfolio</a
-                                >
-                            </li>
-                            <li>
-                                <a
-                                    class="smoothscroll"
-                                    href="#services"
-                                    title=""
-                                    >Services</a
-                                >
-                            </li>
-                            <li>
-                                <a class="smoothscroll" href="#contact" title=""
-                                    >Contact</a
-                                >
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+    network:
+      page load: zero external calls. fonts vendored, scripts vendored.
+      rabbithole command (lunar): one eth_call to arb-one.api.pocket.network
+                                  (arbitrum one) to read EIP-6538 registry.
+                                  no fallback.
+
+    for the curious:
+      echo "UHJpdmFjeSBpcyBuZWNlc3NhcnkgZm9yIGFuIG9wZW4gc29jaWV0eSBpbiB0aGUg\
+ZWxlY3Ryb25pYyBhZ2UuICAtLSBlcmljIGh1Z2hlcywgMTk5Mw==" | base64 -d
+  -->
+
+        <noscript>
+            <div
+                style="
+                    background: #faf7f0;
+                    color: #1a1a1a;
+                    padding: 18px 24px;
+                    border-bottom: 1px solid #d8d2c2;
+                    font-family: monospace;
+                    font-size: 13px;
+                "
+            >
+                good. trust no script you didn't audit. this page renders fine
+                without me. the lunar terminal needs JS — open it if you want
+                it.
             </div>
-        </header>
+        </noscript>
 
-        <!-- INTRO -->
-        <section id="intro">
-            <div class="intro-overlay"></div>
+        <canvas id="matrix-bg" aria-hidden="true"></canvas>
 
-            <div class="intro-content">
-                <div class="row">
-                    <div class="col-twelve">
-                        <br />
-                        <h5>Hello, Decentralized World</h5>
-                        <h1 style="font-family: &quot;Fira Code&quot;">
-                            This is Iván M.M.
-                        </h1>
-                        <br />
-                        <p class="intro-position">
-                            <span>Human being</span>
-                            <span>Son</span>
-                        </p>
-                        <a
-                            class="button stroke smoothscroll"
-                            href="#about"
-                            title=""
-                            >More about me</a
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <ul class="intro-social">
-                <li>
-                    <a href="https://t.me/Ivanovish10"
-                        ><i class="fa fa-telegram"></i
-                    ></a>
-                </li>
-                <li>
-                    <a href="https://x.com/ivanmmurcia_" target="_blank"
-                        ><i class="fa fa-twitter"></i
-                    ></a>
-                </li>
-                <li>
-                    <a href="https://github.com/ivanmmurciaua" target="_blank"
-                        ><i class="fa fa-github"></i
-                    ></a>
-                </li>
-                <li>
-                    <a
-                        href="https://www.linkedin.com/in/iv%C3%A1n-ma%C3%B1%C3%BAs-murcia-24021a151/"
-                        target="_blank"
-                        ><i class="fa fa-linkedin"></i
-                    ></a>
-                </li>
-            </ul>
-        </section>
-
-        <!-- ABOUT -->
-        <section id="about">
-            <div class="row section-intro">
-                <div class="col-twelve">
-                    <h5>About</h5>
-                    <h1>Let me introduce myself</h1>
-                </div>
-            </div>
-
-            <div class="row about-content">
-                <div class="col-six tab-full">
-                    <h3>Profile</h3>
-                    <p></p>
-
-                    <ul class="info-list">
-                        <li>
-                            <strong>Fullname:</strong>
-                            <span>Iván Mañús Murcia</span>
-                        </li>
-
-                        <li>
-                            <strong>Birth Date:</strong>
-                            <span>September 23, 1996</span>
-                        </li>
-
-                        <li>
-                            <strong>Job:</strong>
-                            <span>Developer & Tech Disruptive Dreamer</span>
-                        </li>
-
-                        <li>
-                            <strong>(Decentralized) Website:</strong>
-                            <span>ivanmmurcia.eth.limo</span>
-                        </li>
-
-                        <li>
-                            <strong>web2 email:</strong>
-                            <span>solucionesemecuadrado@gmail.com</span>
-                        </li>
-
-                        <li>
-                            <strong>web3 email:</strong>
-                            <span>ivanmmurcia.eth@ethermail.io</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-six tab-full">
-                    <h3>Programming Skills</h3>
-
-                    <ul class="skill-bars">
-                        <li>
-                            <div class="progress percent85">
-                                <span>85%</span>
-                            </div>
-                            <strong>Solidity</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent85">
-                                <span>85%</span>
-                            </div>
-                            <strong>web3</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent80">
-                                <span>80%</span>
-                            </div>
-                            <strong>HTML5 & CSS3</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent80">
-                                <span>80%</span>
-                            </div>
-                            <strong>JavaScript & Typescript</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent80">
-                                <span>80%</span>
-                            </div>
-                            <strong>PHP</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent75">
-                                <span>75%</span>
-                            </div>
-                            <strong>Python</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent70">
-                                <span>70%</span>
-                            </div>
-                            <strong>Databases</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent60">
-                                <span>60%</span>
-                            </div>
-                            <strong>ReactJS</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent60">
-                                <span>60%</span>
-                            </div>
-                            <strong>jQuery</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent45">
-                                <span>45%</span>
-                            </div>
-                            <strong>Java</strong>
-                        </li>
-
-                        <li>
-                            <div class="progress percent40">
-                                <span>40%</span>
-                            </div>
-                            <strong>C++</strong>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="row button-section">
-                <div class="col-twelve">
-                    <a
-                        href="#contact"
-                        title="Hire Me"
-                        class="button stroke smoothscroll"
-                        >Hire Me</a
+        <!-- lunar-only interactive terminal. populated + shown by main.js.
+             with no js, this stays hidden and the regular CV below renders. -->
+        <section id="terminal" aria-label="lunar terminal" hidden>
+            <div class="term-screen" id="term-screen">
+                <div
+                    class="term-output"
+                    id="term-output"
+                    aria-live="polite"
+                ></div>
+                <form class="term-form" id="term-form" autocomplete="off">
+                    <span class="term-prompt" aria-hidden="true"
+                        >imm@cv:~$&nbsp;</span
                     >
-                    <!-- <a href="#" title="Download CV" class="button button-primary">Download CV</a> -->
-                </div>
+                    <input
+                        id="term-input"
+                        name="cmd"
+                        type="text"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        aria-label="command"
+                    />
+                </form>
             </div>
         </section>
 
-        <!-- RESUME -->
-        <section id="resume" class="grey-section">
-            <div class="row section-intro">
-                <div class="col-twelve">
-                    <h5>Resume</h5>
-                    <h1>More of my credentials</h1>
-                </div>
-            </div>
+        <main class="container">
+            <!-- ===== 1. HERO ===== -->
+            <header class="hero" id="top">
+                <pre class="ascii" aria-hidden="true">
+ ___  __  __  __  __
+|_ _||  \/  ||  \/  |
+ | | | |\/| || |\/| |
+ | | | |  | || |  | |
+|___||_|  |_||_|  |_|
+      </pre
+                >
 
-            <div class="row resume-timeline">
-                <div class="col-twelve resume-header">
-                    <h2>Work Experience</h2>
-                </div>
+                <h1 class="name">Iván Mañús Murcia</h1>
+                <p class="tagline">
+                    Building web3 without the UX tax. Privacy by default,
+                    custody by design.<span class="cursor" aria-hidden="true"
+                        >▮</span
+                    >
+                </p>
 
-                <div class="col-twelve">
-                    <div class="timeline-wrap">
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
+                <p class="meta">Spain · Remote · open to relocation</p>
 
-                            <div class="timeline-header">
-                                <h3>Cofounder</h3>
-                                <p>May. 2022 - Present</p>
-                            </div>
+                <nav class="links" aria-label="Contact">
+                    <a href="https://github.com/ivanmmurciaua" rel="me noopener"
+                        >github</a
+                    >
+                    <a
+                        href="mailto:solucionesemecuadrado@gmail.com"
+                        rel="me noopener"
+                        >email</a
+                    >
+                    <a href="https://x.com/ivanmmurcia_" rel="me noopener">x</a>
+                    <a href="https://t.me/ivanovish10" rel="me noopener"
+                        >telegram</a
+                    >
+                    <a
+                        href="https://linkedin.com/in/ivan-m-m/"
+                        rel="me noopener"
+                        >linkedin</a
+                    >
+                </nav>
+            </header>
 
-                            <div class="timeline-content">
-                                <h4>DeDelivery</h4>
-                                <p>
-                                    As side project, DeDelivery aims to be a
-                                    decentralized home delivery protocol that
-                                    leverages the benefits of smart contracts
-                                    and blockchain technology to connect
-                                    different actors involved in the traditional
-                                    delivery process, thus avoiding middlemen,
-                                    avoiding abusive commissions and reducing
-                                    costs.
-                                </p>
-                            </div>
-                        </div>
+            <!-- ===== 2. SUMMARY ===== -->
+            <section class="block" id="summary">
+                <h2 class="section-h" data-cmd="whoami">about</h2>
+                <p>
+                    Engineer · cypherpunk by ethos. I picked up Solidity and
+                    web3 during the pandemic and never stopped — I read new
+                    proposals the way other people read news.
+                </p>
+                <p>
+                    For 3+ years at Bit2Me I led Commerce — the product that let
+                    Spanish merchants accept crypto for goods and services,
+                    auto-swapped to fiat. As part of the Core team I also drove
+                    DevRel, integrating Bit2Me's API into banks and exchanges —
+                    <strong>€1M+/mo in institutional flow</strong>.
+                </p>
+                <p>
+                    Co-author of
+                    <a href="https://eips.ethereum.org/EIPS/eip-5216"
+                        >EIP-5216</a
+                    >. Co-founder of EscuelaCryptoES, the Spanish-speaking EVM
+                    community. On LinkedIn (<strong>2,000+ followers</strong>) I
+                    share a critical, engineer's-eye read on ecosystem news.
+                </p>
+                <p>
+                    What I build for: DeFi, privacy and security shipped with
+                    the UX they deserve — for institutions and individuals
+                    alike. Low-level under the hood, seamless on top. AI is a
+                    power tool, not a substitute for judgment.
+                </p>
+            </section>
 
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
+            <!-- ===== 3. EXPERIENCE ===== -->
+            <section class="block" id="experience">
+                <h2 class="section-h" data-cmd="cat experience.log">
+                    experience
+                </h2>
 
-                            <div class="timeline-header">
-                                <h3>Cofounder & Blockchain Developer</h3>
-                                <p>Jul. 2021 - Present</p>
-                            </div>
+                <article class="role">
+                    <header class="role-head">
+                        <h3>
+                            Commerce Principal Engineer · DevRel
+                            <span class="at">@ Bit2Me</span>
+                        </h3>
+                        <span class="dates">Nov 2023 – Jan 2026</span>
+                    </header>
+                    <p class="loc">Remote</p>
+                    <ul>
+                        <li>
+                            Led <strong>Bit2Me Commerce</strong> as Principal
+                            Engineer — the product that let Spanish merchants
+                            accept crypto for goods and services, auto-swapped
+                            to fiat. Suite's first product to accept
+                            <strong>Lightning Network</strong> payments.
+                        </li>
+                        <li>
+                            Core team member; drove
+                            <strong>DevRel</strong> integrating Bit2Me's API
+                            into banks and exchanges —
+                            <strong>10+ institutional integrations</strong>
+                            processing
+                            <strong>€1M+ in monthly volume</strong>.
+                        </li>
+                    </ul>
+                </article>
 
-                            <div class="timeline-content">
-                                <h4>EscuelaCryptoES</h4>
-                                <p>
-                                    I have developed multiple projects under
-                                    that brand. My scope is diverse: feasibility
-                                    analysis of projects, development of smart
-                                    contracts with Hardhat, testing and basic
-                                    security analysis.
-                                </p>
-                            </div>
-                        </div>
+                <article class="role">
+                    <header class="role-head">
+                        <h3>
+                            Software Support Engineer, Commerce
+                            <span class="at">@ Bit2Me</span>
+                        </h3>
+                        <span class="dates">Nov 2022 – Nov 2023</span>
+                    </header>
+                    <p class="loc">Remote</p>
+                    <ul>
+                        <li>
+                            Onboarded <strong>300+ merchants</strong> to crypto
+                            payments via Bit2Me Commerce —
+                            <strong>€300k+ in first-year volume</strong>.
+                        </li>
+                        <li>
+                            Bridged product, support, and engineering: scoped
+                            requirements, built integration tooling, shipped
+                            fixes.
+                        </li>
+                    </ul>
+                </article>
 
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
+                <article class="role">
+                    <header class="role-head">
+                        <h3>
+                            Full-stack Developer
+                            <span class="at"
+                                >@ Corporation For Imaging Diagnosis And
+                                Treatment</span
+                            >
+                        </h3>
+                        <span class="dates">Jul 2018 – Aug 2020</span>
+                    </header>
+                    <p class="loc">Spain</p>
+                    <ul>
+                        <li>
+                            Built client-facing web software in PHP,
+                            JavaScript/jQuery, and MySQL — owned the full
+                            analysis → design → deploy cycle.
+                        </li>
+                        <li>
+                            Managed hosting, migrations, and on-site / remote
+                            client support; mentored teammates.
+                        </li>
+                    </ul>
+                </article>
 
-                            <div class="timeline-header">
-                                <h3>Commerce Main Engineer, SSE & DevRel</h3>
-                                <p>Nov. 2023 - Jan. 2026</p>
-                            </div>
+                <!-- TODO: ASK IVAN — include M² Solutions (freelance, Jul 2020–Mar 2021)? Currently omitted to keep page tight. -->
+            </section>
 
-                            <div class="timeline-content">
-                                <h4>Bit2Me</h4>
-                                <p>
-                                    Principal Engineer of Bit2Me Commerce, the
-                                    only product in the suite that accepted
-                                    payments on the Lightning Network. I was
-                                    also part of the Core team and maintained
-                                    relations with companies and developers
-                                    integrating the company's API. +10
-                                    institutionals, +$1M monthly.
-                                </p>
-                            </div>
-                        </div>
+            <!-- ===== 4. BUILDING / SIDE PROJECTS ===== -->
+            <section class="block" id="building">
+                <h2 class="section-h" data-cmd="ls ./building">
+                    building <span class="sub">(side-projects)</span>
+                </h2>
 
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-
-                            <div class="timeline-header">
-                                <h3>Software Support Engineer</h3>
-                                <p>Nov. 2022 - Nov. 2023</p>
-                            </div>
-
-                            <div class="timeline-content">
-                                <h4>Bit2Me</h4>
-                                <p>
-                                    As the SSE of Bit2Me Commerce, I studied the
-                                    product needs, created, built, and helped
-                                    customers integrate. +300 companies are
-                                    beginning to accept payments in
-                                    cryptocurrency. +$300k yearly.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-
-                            <div class="timeline-header">
-                                <h3>Freelance</h3>
-                                <p>Jul. 2020 - Mar. 2021</p>
-                            </div>
-
-                            <div class="timeline-content">
-                                <h4>M² Solutions</h4>
-                                <p>
-                                    I offered mobile marketing solutions adapted
-                                    to their business through an App builder.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-briefcase"></i>
-                            </div>
-
-                            <div class="timeline-header">
-                                <h3>Full-stack Developer</h3>
-                                <p>Jul. 2018 - Aug. 2020</p>
-                            </div>
-
-                            <div class="timeline-content">
-                                <h4>
-                                    Corporation For Imaging Diagnosis And
-                                    Treatment SL.
-                                </h4>
-                                <p>
-                                    I developed web software (PHP,
-                                    JavaScript/jQuery, MySQL). I conducted
-                                    analysis, design, and implementation of
-                                    client solutions. I mentored and gave
-                                    feedback to the team. I managed hosting,
-                                    migrations, and provided on-site/remote
-                                    support. Improved my emotional intelligence
-                                    and communication with clients and
-                                    colleagues.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row resume-timeline">
-                <div class="col-twelve resume-header">
-                    <h2>Education</h2>
-                </div>
-                <br /><br />
-                <div class="col-twelve">
-                    <div class="timeline-wrap">
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-
-                            <div class="timeline-header">
-                                <h3>University Degree</h3>
-                                <p>2016 - 2022</p>
-                            </div>
-
-                            <div class="timeline-content">
-                                <h4>IT Engineering</h4>
-                                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-
-                            <div class="timeline-header">
-                                <h3>Superior FP Degree</h3>
-                                <p>2014 - 2016</p>
-                            </div>
-
-                            <div class="timeline-content">
-                                <h4>ASIR</h4>
-                                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-block">
-                            <div class="timeline-ico">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-
-                            <div class="timeline-header">
-                                <h3>Medium FP Degree</h3>
-                                <p>2012 - 2014</p>
-                            </div>
-
-                            <div class="timeline-content">
-                                <h4>SMR</h4>
-                                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="portfolio">
-            <div class="row section-intro">
-                <div class="col-twelve">
-                    <h5>PORTFOLIO</h5>
-                    <h1>Some of my (crazy) work</h1>
-                </div>
-            </div>
-            <div id="portfolio_box" style="margin-left: 2em"></div>
-        </section>
-
-        <!-- SERVICES -->
-        <section id="services">
-            <div class="overlay"></div>
-
-            <div class="row section-intro">
-                <div class="col-twelve">
-                    <h5>Services</h5>
-                    <h1>What Can I Do For You?</h1>
-                </div>
-                <br />
-            </div>
-
-            <div class="row services-content">
-                <div id="owl-slider" class="owl-carousel services-list">
-                    <div class="service">
-                        <span class="icon"><i class="icon-earth"></i></span>
-
-                        <div class="service-content">
-                            <h3>Web Development</h3>
-                            <p class="desc">
-                                My skills in web development start from the use
-                                of programming languages such as PHP and JS with
-                                different variants. Markup and interpreted
-                                languages such as HTML and CSS in their
-                                different variants, too. Without forgetting
-                                different CMS like Wordpress for a simple blog
-                                to Prestashop for an online store.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="service">
-                        <span class="icon"><i class="icon-window"></i></span>
-
-                        <div class="service-content">
-                            <h3>Smart Contract Development</h3>
-                            <p class="desc">
-                                I have been working on and developing different
-                                smart contracts myself. I have also taken
-                                different courses on Ethereum virtual machine
-                                development and I am a member of the great
-                                Hispanic Ethereum programming community
-                                @EscuelaCryptoES. All my experience is
-                                self-taught.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="service">
-                        <span class="icon"><i class="icon-chat"></i></span>
-                        <div class="service-content">
-                            <h3>Consultancy and Analyzer</h3>
-                            <p class="desc">
-                                I have worked in different projects advising and
-                                designing, after analyzing the system to be
-                                implemented, a software adjusted to the client's
-                                needs. From the use of free virtualization
-                                software such as PROXMOX, to the administration
-                                of computer systems and networks.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- QUOTE -->
-
-        <section id="stats" class="count-up">
-            <div class="row">
-                <div class="tab-full">
-                    <aside class="pull-quote">
-                        <blockquote
-                            cite="https://medium.com/@kirirom_instituteoftechnology/the-people-who-are-crazy-enough-to-think-they-can-change-the-world-are-the-ones-who-do-187d2e08a0a8"
-                        >
-                            <p style="color: white">
-                                The people who are crazy enough to think they
-                                can change the world are the ones who do.
-                            </p>
-                            <cite>
-                                <a style="color: white">Steve Jobs</a>
-                            </cite>
-                        </blockquote>
-                    </aside>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section id="contact">
-            <div class="row section-intro">
-                <div class="col-twelve">
-                    <h5>Contact</h5>
-                    <h1>I'd Love To Hear From You.</h1>
-                </div>
-            </div>
-
-            <div class="row contact-info">
-                <div class="col-four tab-full">
-                    <div class="icon">
-                        <i class="icon-pin"></i>
-                    </div>
-
-                    <h5>Where to find me</h5>
-                    <p style="color: white">
-                        Orihuela<br />
-                        Alicante, VC<br />
-                        03300 SPAIN
+                <article class="venture">
+                    <header class="role-head">
+                        <h3>
+                            <a href="https://t.me/EscuelaCrypto_ES"
+                                >EscuelaCryptoES</a
+                            >
+                        </h3>
+                        <span class="scope">co-founder · community</span>
+                    </header>
+                    <p>
+                        Spanish-speaking EVM community I co-built.
+                        Smart-contract development, testing, basic security
+                        review, and philosophical / technological debates around
+                        AI and crypto.
                     </p>
-                </div>
+                </article>
 
-                <div class="col-four tab-full collapse">
-                    <div class="icon">
-                        <i class="icon-mail"></i>
-                    </div>
+                <article class="venture">
+                    <header class="role-head">
+                        <h3>
+                            <a href="https://bautawallet.com">Bauta</a> &amp;
+                            <a
+                                href="https://github.com/ivanmmurciaua/R1DO-tools"
+                                >R1DO Tools</a
+                            >
+                        </h3>
+                        <span class="scope">privacy suite</span>
+                    </header>
+                    <p>
+                        Private stealth payments on EVM (ERC-5564 / EIP-6538),
+                        RAILGUN private transfers over Waku, and passkey-based
+                        privacy management. Self-custodial end to end.
+                    </p>
+                </article>
 
-                    <h5>Email Me At</h5>
-                    <a
-                        style="color: white"
-                        href="mailto:ivanmmurcia.eth@ethermail.io"
-                        >ivanmmurcia.eth@ethermail.io</a
-                    >
-                </div>
+                <article class="venture">
+                    <header class="role-head">
+                        <h3>
+                            <a href="https://thegreatfi.com/">The Great</a>
+                        </h3>
+                        <span class="scope">co-founder · protocol · DeFi</span>
+                    </header>
+                    <p>
+                        DeFi intelligence platform connecting real-time on-chain
+                        data with professional risk criteria.
+                    </p>
+                </article>
 
-                <div class="col-four tab-full">
-                    <div class="icon">
-                        <i class="icon-phone"></i>
-                    </div>
+                <article class="venture">
+                    <header class="role-head">
+                        <h3>NeuralBridge</h3>
+                        <span class="scope">co-founder · company · AI</span>
+                    </header>
+                    <p>
+                        Embeds AI across the whole company — a dynamic interplay
+                        between AI's execution capabilities and the team's
+                        critical thinking.
+                    </p>
+                </article>
 
-                    <h5>Call Me At</h5>
-                    <p style="color: white">Mobile phone: Ask me</p>
-                </div>
-            </div>
-        </section>
+                <article class="venture">
+                    <header class="role-head">
+                        <h3><a href="https://kuhana.io">Kuhana</a></h3>
+                        <span class="scope">co-founder · app · draft</span>
+                    </header>
+                    <p>
+                        Global app for circles of trust with shared finances and
+                        savings.
+                    </p>
+                </article>
 
-        <!-- FOOTER -->
-        <footer>
-            <div class="row">
-                <div class="col-six tab-full pull-right social"></div>
+                <article class="venture">
+                    <header class="role-head">
+                        <h3>
+                            <a href="https://dedelivery.es/">DeDelivery</a>
+                        </h3>
+                        <span class="scope">co-founder · protocol</span>
+                    </header>
+                    <p>
+                        Decentralized last-mile delivery protocol on EVM. Smart
+                        contracts coordinate couriers, vendors, and customers
+                        directly — removing middlemen, abusive commissions, and
+                        platform lock-in.
+                    </p>
+                </article>
+            </section>
 
-                <div class="col-six tab-full">
-                    <div class="copyright">
-                        <span>Designed with ❤️</span>
-                        <span
-                            >Web stored in
-                            <a href="https://ipfs.tech/">IPFS</a></span
-                        >
-                    </div>
-                </div>
+            <!-- ===== 5. EDUCATION ===== -->
+            <section class="block" id="education">
+                <h2 class="section-h" data-cmd="cat education.txt">
+                    education
+                </h2>
+                <ul class="edu">
+                    <li>
+                        BSc, IT Engineering · Universidad de Alicante · 2016 –
+                        2022
+                    </li>
+                    <li>
+                        Higher Vocational (ASIR), Network &amp; Systems
+                        Administration · IES Las Espeñetas · 2014 – 2016
+                    </li>
+                </ul>
+            </section>
 
-                <div id="go-top">
-                    <a class="smoothscroll" title="Back to Top" href="#top"
-                        ><i class="fa fa-long-arrow-up"></i
-                    ></a>
-                </div>
-            </div>
-        </footer>
+            <!-- ===== 8. STACK ===== -->
+            <section class="block" id="stack">
+                <h2 class="section-h" data-cmd="stack --list">stack</h2>
+                <dl class="stack">
+                    <dt>Smart contracts</dt>
+                    <dd>
+                        Solidity · Hardhat · OpenZeppelin · EVM gas &amp;
+                        storage optimization · ERC-20 / 721 / 1155
+                    </dd>
 
-        <div id="preloader"><div id="loader"></div></div>
+                    <dt>Privacy &amp; crypto</dt>
+                    <dd>
+                        Applied cryptography · stealth addresses (ERC-5564 /
+                        EIP-6538) · RAILGUN shielded ops · passkeys (WebAuthn) ·
+                        Safe{Core} SDK · ERC-4337 account abstraction
+                    </dd>
 
-        <!-- JavaScript -->
-        <script src="js/jquery-2.1.3.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+                    <dt>Payments rails</dt>
+                    <dd>
+                        Bitcoin · DeFi flow · standard EVM money flow ·
+                        institutional web2 APIs · crypto-to-fiat · auto-swaps ·
+                        cross-chain ops
+                    </dd>
+
+                    <dt>Backend</dt>
+                    <dd>TypeScript · Node.js · Python</dd>
+
+                    <dt>Frontend</dt>
+                    <dd>Next.js · Vite · React</dd>
+
+                    <dt>Infra</dt>
+                    <dd>IPFS · Waku</dd>
+                </dl>
+            </section>
+
+            <footer class="footer">
+                <p><a href="#top">back to top</a></p>
+            </footer>
+        </main>
+
+        <!-- classic script: sets globalThis.keccak256 used by main.js -->
+        <script src="vendor/sha3.js"></script>
+        <!-- module: imports noble-secp256k1 for stealth address derivation -->
+        <script type="module" src="main.js"></script>
     </body>
 </html>
